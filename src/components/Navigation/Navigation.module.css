@@ -8,10 +8,6 @@
   text-decoration: none;
   padding: 12px;
   font-weight: 500;
-  color: #2a363b;
+  /* color: #2a363b; */
   font-size: 18px;
-}
-
-.ActiveLink {
-  color: #2196f3;
 }

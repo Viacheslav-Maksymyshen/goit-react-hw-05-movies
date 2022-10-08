@@ -16,7 +16,6 @@ export default function HomePage() {
     <>
       <div className={style.HomePage}>
         <h2 className={style.Title}>Popular movies today</h2>
-
         {movies && <MovieList movies={movies} url={'/movies'} />}
       </div>
     </>
