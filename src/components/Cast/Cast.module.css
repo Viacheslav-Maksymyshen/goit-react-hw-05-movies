@@ -1,4 +1,4 @@
-.List {
+.Cast {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -10,10 +10,4 @@
 
 .Title {
   max-width: 185px;
-}
-
-.Link {
-  text-decoration: none;
-  color: #000000;
-  font-size: 20px;
 }

@@ -1,15 +1,16 @@
-import { Link } from 'react-router-dom';
-import notFoundPoster from '../../images/404.jpg';
-import style from './';
+import { NavLink } from 'react-router-dom';
+import notFoundPoster from '../../images/NotFoundPoster.jpg';
+import style from './MovieList.module.css';
 
-export default function MovieList({ movies, url, location }) {
+export default function MovieList({ movies, location }) {
   return (
     <ul className={style.List}>
       {movies.map(movie => (
         <li key={movie.id} className={style.Item}>
-          <Link
+          <NavLink
             className={style.Link}
-            to={{ pathname: `${url}/${movie.id}`, state: { from: location } }}
+            to={{ pathname: `/movies/${movie.id}` }}
+            state={{ from: location }}
           >
             <img
               src={
@@ -20,7 +21,7 @@ export default function MovieList({ movies, url, location }) {
               alt={movie.title}
             />
             <p className={style.Title}>{movie.title}</p>
-          </Link>
+          </NavLink>
         </li>
       ))}
     </ul>
