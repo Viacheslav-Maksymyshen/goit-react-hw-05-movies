@@ -2,14 +2,15 @@ import { useState, useEffect } from 'react';
 import * as MovieApiServise from '../../servises/MovieApiServise';
 import notFoundPoster from '../../images/NotFoundPoster.jpg';
 import style from './Cast.module.css';
+import { toast } from 'react-toastify';
 
 export default function Cast({ movieId }) {
   const [cast, setCast] = useState(null);
 
   useEffect(() => {
-    MovieApiServise.fetchCastMovie(movieId).then(response =>
-      setCast(response.cast)
-    );
+    MovieApiServise.fetchCastMovie(movieId)
+      .then(response => setCast(response.cast))
+      .catch(error => toast.error('Error, sorry please'));
   }, [movieId]);
 
   return (

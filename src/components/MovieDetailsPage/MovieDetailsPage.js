@@ -8,9 +8,10 @@ import {
   useLocation,
 } from 'react-router-dom';
 import * as MovieApiServise from '../../servises/MovieApiServise';
-import { Dna } from 'react-loader-spinner';
-import notFound from '../../images/NotFound.png';
+import Loader from 'components/Loader';
+import notFound from '../../images/NotFound.jpg';
 import style from './MovieDetailsPage.module.css';
+import { toast } from 'react-toastify';
 const Cast = lazy(() => import('../Cast/Cast'));
 const Reviews = lazy(() => import('../Reviews/Reviews'));
 
@@ -21,9 +22,9 @@ export default function MovieDetailsPage() {
   const location = useLocation();
 
   useEffect(() => {
-    MovieApiServise.fetchDetailsMovie(movieId).then(response =>
-      setMovie(response)
-    );
+    MovieApiServise.fetchDetailsMovie(movieId)
+      .then(response => setMovie(response))
+      .catch(error => toast.error('Error, sorry please'));
   }, [movieId]);
 
   const onGoBack = () => {
@@ -88,18 +89,7 @@ export default function MovieDetailsPage() {
               </ul>
             </div>
 
-            <Suspense
-              fallback={
-                <Dna
-                  visible={true}
-                  height="80"
-                  width="80"
-                  ariaLabel="dna-loading"
-                  wrapperStyle={{}}
-                  wrapperClass="dna-wrapper"
-                />
-              }
-            >
+            <Suspense fallback={<Loader />}>
               <Routes>
                 <Route path={`cast`} element={<Cast movieId={movieId} />} />
 

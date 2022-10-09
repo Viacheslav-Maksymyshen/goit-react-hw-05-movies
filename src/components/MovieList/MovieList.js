@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import notFoundPoster from '../../images/NotFoundPoster.jpg';
 import style from './MovieList.module.css';
+import PropTypes from 'prop-types';
 
 export default function MovieList({ movies, location }) {
   return (
@@ -27,3 +28,12 @@ export default function MovieList({ movies, location }) {
     </ul>
   );
 }
+
+MovieList.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};

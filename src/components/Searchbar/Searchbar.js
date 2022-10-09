@@ -10,21 +10,17 @@ export default function Searchbar({ onSubmit }) {
 
   useEffect(() => {
     const queryValue = new URLSearchParams(location.search).get('query');
-
     if (queryValue === null) {
       return;
     }
-
     setSearchQuery(queryValue);
   }, [location.search]);
-
   const handleNameChange = event => {
     setSearchQuery(event.currentTarget.value.toLowerCase());
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-
     onSubmit(searchQuery.trim().toLowerCase());
     setSearchQuery('');
   };

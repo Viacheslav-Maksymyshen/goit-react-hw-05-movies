@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 import * as MovieApiServise from '../../servises/MovieApiServise';
 import style from './Reviews.module.css';
+import { toast } from 'react-toastify';
 
 export default function Reviews({ movieId }) {
   const [reviews, setReviews] = useState(null);
 
   useEffect(() => {
-    MovieApiServise.fetchReviewsMovie(movieId).then(response =>
-      setReviews(response.results),
-    );
+    MovieApiServise.fetchReviewsMovie(movieId)
+      .then(response => setReviews(response.results))
+      .catch(error => toast.error('Error, sorry please'));
   }, [movieId]);
 
   return (
