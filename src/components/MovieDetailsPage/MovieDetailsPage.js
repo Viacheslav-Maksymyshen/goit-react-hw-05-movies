@@ -1,8 +1,7 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import {
+  Outlet,
   NavLink,
-  Route,
-  Routes,
   useParams,
   useNavigate,
   useLocation,
@@ -11,24 +10,29 @@ import * as MovieApiServise from '../../servises/MovieApiServise';
 import Loader from 'components/Loader';
 import notFound from '../../images/NotFound.jpg';
 import style from './MovieDetailsPage.module.css';
-import { toast } from 'react-toastify';
-const Cast = lazy(() => import('../Cast/Cast'));
-const Reviews = lazy(() => import('../Reviews/Reviews'));
+
+// const Cast = lazy(() => import('../Cast/Cast'));
+// const Reviews = lazy(() => import('../Reviews/Reviews'));
 
 export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
+
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    MovieApiServise.fetchDetailsMovie(movieId)
-      .then(response => setMovie(response))
-      .catch(error => toast.error('Error, sorry please'));
+    MovieApiServise.fetchDetailsMovie(movieId).then(response => {
+      if (response) {
+        setMovie(response.data);
+      } else {
+        return;
+      }
+    });
   }, [movieId]);
 
   const onGoBack = () => {
-    navigate(location?.state?.from ?? '/');
+    navigate(location.state?.from ?? '/');
   };
 
   return (
@@ -73,7 +77,7 @@ export default function MovieDetailsPage() {
                 <li className={style.Link}>
                   <NavLink
                     to={`cast`}
-                    state={{ from: location?.state?.from ?? null }}
+                    state={{ from: location.state?.from ?? null }}
                   >
                     Cast
                   </NavLink>
@@ -81,7 +85,7 @@ export default function MovieDetailsPage() {
                 <li className={style.Link}>
                   <NavLink
                     to={`reviews`}
-                    state={{ from: location?.state?.from ?? null }}
+                    state={{ from: location.state?.from ?? null }}
                   >
                     Reviews
                   </NavLink>
@@ -90,14 +94,7 @@ export default function MovieDetailsPage() {
             </div>
 
             <Suspense fallback={<Loader />}>
-              <Routes>
-                <Route path={`cast`} element={<Cast movieId={movieId} />} />
-
-                <Route
-                  path={`reviews`}
-                  element={<Reviews movieId={movieId} />}
-                />
-              </Routes>
+              <Outlet />
             </Suspense>
           </div>
         </>

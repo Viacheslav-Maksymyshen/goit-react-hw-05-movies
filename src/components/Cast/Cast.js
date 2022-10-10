@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import * as MovieApiServise from '../../servises/MovieApiServise';
 import notFoundPoster from '../../images/NotFoundPoster.jpg';
 import style from './Cast.module.css';
-import { toast } from 'react-toastify';
 
-export default function Cast({ movieId }) {
+export default function Cast() {
   const [cast, setCast] = useState(null);
+  const { movieId } = useParams();
 
   useEffect(() => {
-    MovieApiServise.fetchCastMovie(movieId)
-      .then(response => setCast(response.cast))
-      .catch(error => toast.error('Error, sorry please'));
+    MovieApiServise.fetchCastMovie(movieId).then(response => {
+      if (response) {
+        setCast(response.data.cast);
+      } else {
+        return;
+      }
+    });
   }, [movieId]);
 
   return (

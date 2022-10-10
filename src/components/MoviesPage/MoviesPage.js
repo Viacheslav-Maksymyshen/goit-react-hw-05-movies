@@ -5,7 +5,6 @@ import Searchbar from '../Searchbar';
 import MovieList from '../MovieList';
 import * as MovieApiServise from '../../servises/MovieApiServise';
 import notFound from '../../images/NotFound.jpg';
-import { toast } from 'react-toastify';
 
 export default function MoviesPage() {
   const [movies, setMovies] = useState([]);
@@ -19,9 +18,13 @@ export default function MoviesPage() {
       return;
     }
 
-    MovieApiServise.fetchSearchMovies(query)
-      .then(response => setMovies(response.results))
-      .catch(error => toast.error('Error, sorry please'));
+    MovieApiServise.fetchSearchMovies(query).then(response => {
+      if (response) {
+        setMovies(response.data.results);
+      } else {
+        return;
+      }
+    });
   }, [query]);
 
   const handleSubmit = value => {
