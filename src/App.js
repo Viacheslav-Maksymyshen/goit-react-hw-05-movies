@@ -2,14 +2,14 @@ import { Routes, Route } from 'react-router-dom';
 import { lazy } from 'react';
 
 import Container from 'components/Container';
-import NotFoundPage from 'components/NotFoundPage';
+import NotFoundPage from 'pages/NotFoundPage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from './components/Layout/Layout';
 
-const HomePage = lazy(() => import('./components/HomePage'));
-const MoviesPage = lazy(() => import('./components/MoviesPage'));
-const MovieDetailsPage = lazy(() => import('./components/MovieDetailsPage'));
+const HomePage = lazy(() => import('./pages/HomePage'));
+const MoviesPage = lazy(() => import('./pages/MoviesPage'));
+const MovieDetailsPage = lazy(() => import('./pages/MovieDetailsPage'));
 const Cast = lazy(() => import('./components/Cast'));
 const Reviews = lazy(() => import('./components/Reviews'));
 

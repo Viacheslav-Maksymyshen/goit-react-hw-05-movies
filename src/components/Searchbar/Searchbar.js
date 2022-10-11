@@ -1,28 +1,23 @@
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { ImSearch } from 'react-icons/im';
+import { toast } from 'react-toastify';
 import style from './Searchbar.module.css';
 
-export default function Searchbar({ onSubmit }) {
-  const [searchQuery, setSearchQuery] = useState('');
-  const location = useLocation();
+export default function Searchbar({ onSubmit, value }) {
+  const [searchQuery, setSearchQuery] = useState(value);
 
-  useEffect(() => {
-    const queryValue = new URLSearchParams(location.search).get('query');
-    if (queryValue === null) {
-      return;
-    }
-    setSearchQuery(queryValue);
-  }, [location.search]);
   const handleNameChange = event => {
     setSearchQuery(event.currentTarget.value.toLowerCase());
   };
 
   const handleSubmit = event => {
     event.preventDefault();
+
+    if (searchQuery.trim() === '') {
+      toast.info('Please enter a search query');
+    }
     onSubmit(searchQuery.trim().toLowerCase());
-    setSearchQuery('');
   };
 
   return (
@@ -50,6 +45,5 @@ export default function Searchbar({ onSubmit }) {
 }
 
 Searchbar.propTypes = {
-  searchQuery: PropTypes.string,
   onSubmit: PropTypes.func,
 };

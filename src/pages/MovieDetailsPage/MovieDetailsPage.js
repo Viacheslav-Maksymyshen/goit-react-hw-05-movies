@@ -11,13 +11,9 @@ import Loader from 'components/Loader';
 import notFound from '../../images/NotFound.jpg';
 import style from './MovieDetailsPage.module.css';
 
-// const Cast = lazy(() => import('../Cast/Cast'));
-// const Reviews = lazy(() => import('../Reviews/Reviews'));
-
 export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
-
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -26,10 +22,15 @@ export default function MovieDetailsPage() {
       if (response) {
         setMovie(response.data);
       } else {
+        setTimeout(() => {
+          navigate('/404-page-not-found');
+        }, 5000);
         return;
       }
     });
-  }, [movieId]);
+  }, [movieId, navigate]);
+
+  if (!movie) return null;
 
   const onGoBack = () => {
     navigate(location.state?.from ?? '/');
