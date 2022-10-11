@@ -81,7 +81,7 @@ export default function MovieDetailsPage() {
                 <li className={style.Link}>
                   <NavLink
                     to={`cast`}
-                    state={{ from: location.state?.from ?? '/movies ' }}
+                    state={{ from: location.state?.from ?? null }}
                   >
                     Cast
                   </NavLink>
@@ -89,7 +89,7 @@ export default function MovieDetailsPage() {
                 <li className={style.Link}>
                   <NavLink
                     to={`reviews`}
-                    state={{ from: location.state?.from ?? '/movies' }}
+                    state={{ from: location.state?.from ?? null }}
                   >
                     Reviews
                   </NavLink>
