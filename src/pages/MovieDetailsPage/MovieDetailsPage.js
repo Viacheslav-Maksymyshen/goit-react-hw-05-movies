@@ -40,10 +40,6 @@ export default function MovieDetailsPage() {
     <>
       {movie && (
         <>
-          <button className={style.Button} type="button" onClick={onGoBack}>
-            Go Back
-          </button>
-
           <div className={style.MovieDetailsPage}>
             <div className={style.MovieDetails}>
               <div className={style.MovieDetails_img}>
@@ -59,6 +55,13 @@ export default function MovieDetailsPage() {
                 />
               </div>
               <div className={style.Information}>
+                <button
+                  className={style.Button}
+                  type="button"
+                  onClick={onGoBack}
+                >
+                  Go Back
+                </button>
                 <h2 className={style.Information_title}>{`${
                   movie.title
                 } (${movie.release_date.slice(0, 4)})`}</h2>
