@@ -24,7 +24,7 @@ export default function MovieDetailsPage() {
       } else {
         setTimeout(() => {
           navigate('/404-page-not-found');
-        }, 5000);
+        }, 1000);
         return;
       }
     });
@@ -81,7 +81,7 @@ export default function MovieDetailsPage() {
                 <li className={style.Link}>
                   <NavLink
                     to={`cast`}
-                    state={{ from: location.state?.from ?? null }}
+                    state={{ from: location.state?.from ?? '/movies ' }}
                   >
                     Cast
                   </NavLink>
@@ -89,7 +89,7 @@ export default function MovieDetailsPage() {
                 <li className={style.Link}>
                   <NavLink
                     to={`reviews`}
-                    state={{ from: location.state?.from ?? null }}
+                    state={{ from: location.state?.from ?? '/movies' }}
                   >
                     Reviews
                   </NavLink>
